@@ -15,7 +15,9 @@ def create_app():
     db.init_app(app)
     
     with app.app_context():
-        #registro de blueprint
+        #registro del blueprint
+        from .sports_api import sports_api_blueprint
+        app.register_blueprint(sports_api_blueprint)
         return app
     
     
