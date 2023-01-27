@@ -1,1 +1,1 @@
-FLASK_APP = rum.py
+FLASK_APP = run.py
