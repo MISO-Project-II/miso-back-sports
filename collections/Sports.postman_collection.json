@@ -1,0 +1,26 @@
+{
+	"info": {
+		"_postman_id": "9074ca8a-4a68-41d8-a47f-23de236c44ed",
+		"name": "Sports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17257724"
+	},
+	"item": [
+		{
+			"name": "GetSports",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "AddSport",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
