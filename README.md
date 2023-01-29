@@ -1,11 +1,11 @@
 # miso-back-sports
 ## Clonar repositorio:
-    Git clone https://github.com/MISO-Project-II/miso-back-sports.git
+    git clone https://github.com/MISO-Project-II/miso-back-sports.git
 ## Crear ambiente virtual y activarlo:
-    Python3 -m venv venv
-    Source vent/bin/activate
+    python3 -m venv venv
+    source vent/bin/activate
 ## Instalar pre-requisitos:
-    Pip install -r requirements.txt
+    pip install -r requirements.txt
 ## Crear la base de datos en postgres (en la nube), tener ip y puerto.
 ## Re-configurar acceso a bases de datos del microservicio en el archivo “config.py” en la raiz.
     SQLALCHEMY_DATABASE_URI = “postgresql://postgres:usuario@ip_host:puerto/db_name
