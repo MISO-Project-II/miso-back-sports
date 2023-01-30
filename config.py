@@ -10,7 +10,8 @@ class Config:
 
 class DevelopmentConfig(Config):
     ENV = "development"
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@localhost:5433/sportapp_db"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@localhost:5433/db_sportapp"
 
 class ProductionConfig(Config):
-    pass    
+    ENV = "production"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:miso-db-2023@34.173.63.65:5432/db_sportapp"
