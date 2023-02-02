@@ -8,8 +8,8 @@ def test_get_call():
 
 def test_post_call():
     sports = {
-        'name' : "Pecho",
-        'description' : "Fortalecer pecho"
+        'name' : "Test",
+        'description' : "Descripcion Test"
     }
     response = requests.post("http://127.0.0.1:7001/sport/add", data=sports)
     assert response.status_code == 200
