@@ -1,6 +1,0 @@
-projectKey=miso-back-sports
-serverUrl=http://34.67.142.84:9001
-serverVersion=9.8.0.63668
-dashboardUrl=http://34.67.142.84:9001/dashboard?id=miso-back-sports
-ceTaskId=AYYAtv0oOukA7N_Hs5bj
-ceTaskUrl=http://34.67.142.84:9001/api/ce/task?id=AYYAtv0oOukA7N_Hs5bj
