@@ -1,0 +1,16 @@
+steps:
+  # Install dependencies
+  - name: python
+    entrypoint: pip
+    args: ["install", "-r", "requirements.txt", "--user"]
+
+  # Run unit tests
+  - name: python
+    entrypoint: python
+    args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
+py.test --cov-report xml:coverage.xml --cov=. test_api.py
+
+  # Docker Build
+  - id: Docker Build
+    name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-f','src/main/docker/Dockerfile.jvm','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.']
