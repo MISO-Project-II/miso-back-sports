@@ -16,7 +16,8 @@ steps:
     args:
     - '-c'
     - |
-      ls
+      ls \
+      && python -version
   - id: Generate Report
     name: python
     entrypoint: python
