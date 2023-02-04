@@ -42,7 +42,7 @@ steps:
     args: [ 'run','deploy','${_IMAGE_NAME}',
             '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}',
             '--allow-unauthenticated',
-            '--service-account=416628432170@cloudbuild.gserviceaccount.com',
+            '--service-account=416628432170-compute@developer.gserviceaccount.com',
             '--min-instances=1',
             '--max-instances=2',
             '--region=us-central1',
