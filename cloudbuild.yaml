@@ -7,7 +7,7 @@ steps:
   # Run unit tests
   - name: python
     entrypoint: python
-    args: ["-m", "unittest", "discover test/ -v" ]
+    args: ["-m", "unittest", "discover", "test/", "-v" ]
 
   # Docker Build
 #  - id: Docker Build
