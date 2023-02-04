@@ -9,17 +9,17 @@ steps:
   - id: Execute Unit Test
     name: python
     entrypoint: python
-    args: ["-m", "unittest", "discover", "test/", "-v" ]
+    args: [ "-m", "unittest", "discover", "test/", "-v" ]
 
   - id: Coverage Run
     name: python
     entrypoint: python
-    args: ["-m", "coverage", "run", "-m", "unittest", "discover", "test/", "-v"]
+    args: [ "-m", "coverage", "run", "-m", "unittest", "discover", "test/", "-v" ]
 
   - id: Generate XML
     name: python
     entrypoint: python
-    args: ["-m", "coverage", "xml"]
+    args: [ "-m", "coverage", "xml" ]
 
   - id: Sonar Analysis
     name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
@@ -31,7 +31,7 @@ steps:
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-f','Dockerfile','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}', '.']
+    args: [ 'build', '-f','Dockerfile','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}', '.' ]
 
   - id: Docker push
     name: 'gcr.io/cloud-builders/docker'
@@ -42,7 +42,7 @@ steps:
     args: [ 'run','deploy','${_IMAGE_NAME}',
             '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}',
             '--allow-unauthenticated',
-            '--service-account=416628432170-compute@developer.gserviceaccount.com',
+            '--service-account=416628432170@cloudbuild.gserviceaccount.com',
             '--min-instances=1',
             '--max-instances=2',
             '--region=us-central1',
