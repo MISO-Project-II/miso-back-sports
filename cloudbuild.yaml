@@ -1,13 +1,20 @@
 steps:
   # Install dependencies
-  - name: python
+  - id: Install requirements
+    name: python
     entrypoint: pip
     args: [ "install", "-r", "requirements.txt", "--user" ]
 
   # Run unit tests
-  - name: python
+  - id: Execute Unit Test
+    name: python
     entrypoint: python
     args: ["-m", "unittest", "discover", "test/", "-v" ]
+
+  - id: Generate Report
+    name: python
+    entrypoint: python
+    args: ["-m", "coverage", "xml"]
 
   # Docker Build
 #  - id: Docker Build
@@ -21,7 +28,7 @@ steps:
       - '-Dsonar.projectKey=test-python-sport'
       - '-Dsonar.sources=.'
 
-  - id: Docker Build
-    name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-f','src/main/docker/Dockerfile.jvm','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.']
+#  - id: Docker Build
+#    name: 'gcr.io/cloud-builders/docker'
+#    args: [ 'build', '-f','src/main/docker/Dockerfile.jvm','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.']
 
