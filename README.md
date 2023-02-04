@@ -18,3 +18,5 @@
     python3 run.py
 ## Correr pruebas:
     pyest -v
+## Ingresar a link Swagger:
+http://localhost:8080/docs
