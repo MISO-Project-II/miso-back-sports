@@ -8,7 +8,7 @@ from application import *
 class ViewTest(unittest.TestCase):
     unittest.TestLoader.sortTestMethodsUsing = None
 
-    def test_ping_c(self):
+    def getSport(self):
         with application.test_client() as client:
             response = client.get("/sports")
             statusCode = response.status_code
