@@ -2,15 +2,26 @@ steps:
   # Install dependencies
   - name: python
     entrypoint: pip
-    args: ["install", "-r", "requirements.txt", "--user"]
+    args: [ "install", "-r", "requirements.txt", "--user" ]
 
   # Run unit tests
   - name: python
     entrypoint: python
-    args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
-py.test --cov-report xml:coverage.xml --cov=. test_api.py
+    args: [ "python3", "-m", "pytest", "--cov-report xml:coverage.xml", "--cov=test/" ]
 
   # Docker Build
+#  - id: Docker Build
+#    name: 'gcr.io/cloud-builders/docker'
+#    args: [ 'build', '-f','src/main/docker/Dockerfile.jvm','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.' ]
+
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-f','src/main/docker/Dockerfile.jvm','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.']
+
+  - id: Sonar Analysis
+    name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+    args:
+      - '-Dsonar.host.url=http://34.67.142.84:9001'
+      - '-Dsonar.login=sqp_7bd8d85df2e742c4eafd9d7a7c5d0db84deefb2d'
+      - '-Dsonar.projectKey=test-python-sport'
+      - '-Dsonar.sources=.'
