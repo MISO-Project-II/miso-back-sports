@@ -2,6 +2,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, jsonify, request, Blueprint
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_migrate import Migrate
+from apiflask import APIFlask
+
+from model.models import SportOut
+
+app = APIFlask(__name__, spec_path='/openapi.yaml')
+app.config['SPEC_FORMAT'] = 'yaml'
 
 db = SQLAlchemy()
 
@@ -29,6 +35,7 @@ sport_schema = SportSchema()
 
 sports_api_blueprint = Blueprint('sports_api', __name__)
 
+@app.get('/sports')
 @sports_api_blueprint.route('/sports', methods=['GET'])
 def sports():
     sports = []
@@ -38,7 +45,8 @@ def sports():
     response = jsonify({'results': sports})
     return response
 
-
+@app.get('/sport/add')
+@app.input(SportOut)
 @sports_api_blueprint.route('/sport/add', methods=['POST'])
 def add_sport():
     sport = Sports()
@@ -53,7 +61,9 @@ def add_sport():
 
 
 def create_app():
-    application = Flask(__name__)
+    Flask(__name__)
+    application= app
+    application.config['SPEC_FORMAT'] = 'yaml'
     application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:miso-db-2023@34.173.63.65:5432/db_sportapp'
     application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(application)
