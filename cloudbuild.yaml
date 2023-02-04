@@ -46,3 +46,5 @@ steps:
             '--max-instances=2',
             '--region=us-central1',
             '--project=$PROJECT_ID' ]
+substitutions:
+  _IMAGE_NAME: miso-back-sports
