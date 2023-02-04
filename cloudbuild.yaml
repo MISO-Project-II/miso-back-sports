@@ -7,7 +7,7 @@ steps:
   # Run unit tests
   - name: python
     entrypoint: python
-    args: ["-m", "pytest", "--cov-report xml:coverage.xml", "--cov=test/" ]
+    args: ["-m", "unittest", "discover test/ -v" ]
 
   # Docker Build
 #  - id: Docker Build
