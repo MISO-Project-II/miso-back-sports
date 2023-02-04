@@ -39,10 +39,9 @@ steps:
 
   - id: Deploy Cloud Run
     name: 'gcr.io/cloud-builders/gcloud'
-    args: [ 'run','deploy','${_IMAGE_NAME}',
+    args: [ 'run','deploy','${$REPO_NAME}',
             '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}',
             '--allow-unauthenticated',
-            '--service-account=416628432170-compute@developer.gserviceaccount.com',
             '--min-instances=1',
             '--max-instances=2',
             '--region=us-central1',
