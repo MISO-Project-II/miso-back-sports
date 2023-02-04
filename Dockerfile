@@ -1,7 +1,6 @@
-FROM python:3.10.2
-COPY requirements.txt /miso-back-sports/requirements.txt
-WORKDIR /miso-back-sports
+FROM python:3.10.9-slim-buster
+WORKDIR /workspace
+COPY requirements.txt .
 RUN pip install -r requirements.txt
-COPY . /miso-back-sports/
-ENTRYPOINT [“python”]
-CMD [“run.py"]
+COPY . .
+CMD ["python3","application.py"]
