@@ -11,13 +11,16 @@ steps:
     entrypoint: python
     args: ["-m", "unittest", "discover", "test/", "-v" ]
 
-  - name: 'ubuntu'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      ls \
-      && python -version
+  - name: python
+    script: |
+      #!/usr/bin/env python
+      print('hello from python')
+
+  - name: python
+    script: |
+      #!/usr/bin/env python
+      -m coverage xml
+
   - id: Generate Report
     name: python
     entrypoint: python
