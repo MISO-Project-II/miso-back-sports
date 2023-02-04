@@ -31,11 +31,11 @@ steps:
 
   - id: Docker Build
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-f','Dockerfile','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA', '.']
+    args: [ 'build', '-f','Dockerfile','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}', '.']
 
   - id: Docker push
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA' ]
+    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${SHORT_SHA}' ]
 
   - id: Deploy Cloud Run
     name: 'gcr.io/cloud-builders/gcloud'
