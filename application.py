@@ -54,7 +54,7 @@ def add_sport():
 
 def create_app():
     application = Flask(__name__)
-    application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@0.0.0.0:5432/db_sportapp'
+    application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:miso-db-2023@34.173.63.65:5432/db_sportapp'
     application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(application)
     with application.app_context():
