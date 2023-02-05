@@ -1,0 +1,8 @@
+/venv/*
+/.idea/misc.xml
+/scannerwork/*
+
+
+/.pytest_cache/*
+/htmlcov/*
+/coverage.xml

@@ -1,0 +1,50 @@
+steps:
+  # Install dependencies
+  - id: Install requirements
+    name: python
+    entrypoint: pip
+    args: [ "install", "-r", "requirements.txt", "--user" ]
+
+  # Run unit tests
+  - id: Execute Unit Test
+    name: python
+    entrypoint: python
+    args: [ "-m", "unittest", "discover", "test/", "-v" ]
+
+  - id: Coverage Run
+    name: python
+    entrypoint: python
+    args: [ "-m", "coverage", "run", "-m", "unittest", "discover", "test/", "-v" ]
+
+  - id: Generate XML
+    name: python
+    entrypoint: python
+    args: [ "-m", "coverage", "xml" ]
+
+  - id: Sonar Analysis
+    name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+    args:
+      - '-Dsonar.host.url=http://34.67.142.84:9001'
+      - '-Dsonar.login=sqp_7bd8d85df2e742c4eafd9d7a7c5d0db84deefb2d'
+      - '-Dsonar.projectKey=test-python-sport'
+      - '-Dsonar.sources=.'
+
+  - id: Docker Build
+    name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-f','Dockerfile','-t','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}', '.' ]
+
+  - id: Docker push
+    name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}' ]
+
+  - id: Deploy Cloud Run
+    name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'run','deploy','${_IMAGE_NAME}',
+            '--image','gcr.io/$PROJECT_ID/${REPO_NAME}:v.${TAG_NAME}',
+            '--allow-unauthenticated',
+            '--min-instances=1',
+            '--max-instances=2',
+            '--region=us-central1',
+            '--project=$PROJECT_ID' ]
+substitutions:
+  _IMAGE_NAME: miso-back-sports
