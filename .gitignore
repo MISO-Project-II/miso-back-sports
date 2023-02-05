@@ -3,3 +3,6 @@
 /scannerwork/*
 
 
+/.pytest_cache/*
+/htmlcov/*
+/coverage.xml

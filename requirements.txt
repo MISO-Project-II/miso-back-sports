@@ -55,3 +55,4 @@ WTForms==3.0.1
 uvicorn==0.17.5
 fastapi==0.75.0
 requests==2.27.1
+apiflask==1.2.1
