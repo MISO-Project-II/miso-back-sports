@@ -1,16 +1,18 @@
-from flask_sqlalchemy import SQLAlchemy
+from apiflask import APIFlask, Schema
+from apiflask.fields import String
 from flask import Flask, jsonify, request, Blueprint
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_migrate import Migrate
-from apiflask import APIFlask
-
-from model.models import SportOut
+from flask_sqlalchemy import SQLAlchemy
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 app = APIFlask(__name__, spec_path='/openapi.yaml')
 app.config['SPEC_FORMAT'] = 'yaml'
 
 db = SQLAlchemy()
 
+class SportOut(Schema):
+    name = String()
+    description = String()
 
 class Sports(db.Model):
     idsports = db.Column(db.Integer, primary_key=True)
