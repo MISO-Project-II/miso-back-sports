@@ -25,8 +25,8 @@ steps:
     name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     args:
       - '-Dsonar.host.url=http://34.67.142.84:9001'
-      - '-Dsonar.login=sqp_7bd8d85df2e742c4eafd9d7a7c5d0db84deefb2d'
-      - '-Dsonar.projectKey=test-python-sport'
+      - '-Dsonar.login=sqp_ad6d2a7be267469395aa26088f7f0f7ccd7e2ba5'
+      - '-Dsonar.projectKey=miso-back-sports'
       - '-Dsonar.sources=.'
 
   - id: Docker Build
