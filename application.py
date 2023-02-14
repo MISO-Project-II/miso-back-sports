@@ -43,20 +43,6 @@ sport_schema = SportSchema()
 sports_api_blueprint = Blueprint('sports_api', __name__)
 
 
-# @app.get('/sports')
-# @sports_api_blueprint.route('/sports', methods=['GET'])
-# def sports():
-#     sports = []
-#     for row in Sports.query.all():
-#         sports.append(row.to_json())
-#
-#     response = jsonify({'message': 'success',
-#                         'success': True,
-#                         'result': sports
-#                         })
-#     return response
-
-
 @sports_api_blueprint.route('/backend/sports/', methods=['POST'])
 def backend_sports():
     req_data = request.get_json()
