@@ -53,42 +53,43 @@ def backend_sports():
         if get is not None:
             sports.append(get.to_json())
     response = jsonify({
-                        'result': sports
+        'result': sports
+    })
+    return response
+
+
+@sports_api_blueprint.route('/sports', methods=['POST'])
+def add_sport():
+    sport = Sports()
+    req_data = request.get_json()
+    sport.name = req_data['name']
+    sport.description = req_data['description']
+    try:
+        db.session.add(sport)
+        db.session.commit()
+    except Exception as e:
+        response = jsonify({'message': 'Error data exits',
+                            'success': False,
+                            'result': req_data
+                            })
+        return response
+    response = jsonify({'message': 'success',
+                        'success': True,
+                        'result': req_data
                         })
     return response
 
 
-@sports_api_blueprint.route('/sports', methods=['GET', 'POST'])
-def add_sport():
-    if request.method == 'POST':
-        sport = Sports()
-        req_data = request.get_json()
-        sport.name = req_data['name']
-        sport.description = req_data['description']
-        try:
-            db.session.add(sport)
-            db.session.commit()
-        except Exception as e:
-            response = jsonify({'message': 'Error data exits',
-                                'success': False,
-                                'result': req_data
-                                })
-            return response
-        response = jsonify({'message': 'success',
-                            'success': True,
-                            'result': req_data
-                            })
-        return response
-    elif request.method == 'GET':
-
-        sports = []
-        for row in Sports.query.all():
-            sports.append(row.to_json())
-        response = jsonify({'message': 'success',
-                            'success': True,
-                            'result': sports
-                            })
-        return response
+@sports_api_blueprint.route('/sports', methods=['GET'])
+def get_sport():
+    sports = []
+    for row in Sports.query.all():
+        sports.append(row.to_json())
+    response = jsonify({'message': 'success',
+                        'success': True,
+                        'result': sports
+                        })
+    return response
 
 
 def create_app():
