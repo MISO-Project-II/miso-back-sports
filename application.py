@@ -57,6 +57,21 @@ sports_api_blueprint = Blueprint('sports_api', __name__)
 #     return response
 
 
+@sports_api_blueprint.route('/backend/sports/', methods=['POST'])
+def backend_sports():
+    req_data = request.get_json()
+    getdata = req_data['idSport']
+    sports = []
+    for i in getdata:
+        get = db.session.query(Sports).get(i)
+        if get is not None:
+            sports.append(get.to_json())
+    response = jsonify({
+                        'result': sports
+                        })
+    return response
+
+
 @sports_api_blueprint.route('/sports', methods=['GET', 'POST'])
 def add_sport():
     if request.method == 'POST':
@@ -90,14 +105,12 @@ def add_sport():
         return response
 
 
-
-
 def create_app():
     Flask(__name__)
     app.config['JSON_SORT_KEYS'] = False
     application = app
     application.config['SPEC_FORMAT'] = 'yaml'
-    application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/db_sportapp'
+    application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:miso-db-2023@34.173.63.65:5432/db_sportapp'
     application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(application)
     with application.app_context():
