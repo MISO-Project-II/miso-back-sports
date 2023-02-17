@@ -109,4 +109,4 @@ application = create_app()
 migrate = Migrate(application, db)
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', port=8082)
+    application.run(host='0.0.0.0', port=8080)
