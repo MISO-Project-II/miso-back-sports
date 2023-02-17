@@ -16,7 +16,7 @@ class ViewTest(unittest.TestCase):
     def test_postSport(self):
         with application.test_client() as client:
             response = client.post("/sports",
-                                   data=json.dumps({"name": "Football", "description": "descript"}),
+                                   data=json.dumps({"name": "Football", "description": "descript", "sportType": "a"}),
                                    content_type='application/json'
                                    )
             assert response.status_code == 200
@@ -24,7 +24,9 @@ class ViewTest(unittest.TestCase):
     def test_postSport_back(self):
         with application.test_client() as client:
             response = client.post("/backend/sports/",
-                                   data=json.dumps({"idSport": [1, 2, 3, 4, 5, 6]}),
+                                   data=json.dumps({
+                                       "idSport": [1, 2, 3, 4, 5, 6]
+                                   }),
                                    content_type='application/json'
                                    )
             assert response.status_code == 200
