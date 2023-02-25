@@ -1,7 +1,6 @@
 import json
 
-from apiflask import APIFlask, Schema
-from apiflask.fields import String
+from apiflask import APIFlask
 from flask import Flask, jsonify, request, Blueprint
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -9,26 +8,22 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 app = APIFlask(__name__, spec_path='/openapi.yaml')
 app.config['SPEC_FORMAT'] = 'yaml'
-import json
 
 db = SQLAlchemy()
 
 
-class SportOut(Schema):
-    name = String()
-    description = String()
-
-
 class Sports(db.Model):
     idsports = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), unique=True, nullable=False)
-    description = db.Column(db.String(255), unique=True, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255), nullable=False)
+    sport_type = db.Column(db.String(255), nullable=False)
 
     def to_json(self):
         return {
             'idsports': self.idsports,
             'name': self.name,
-            'description': self.description
+            'description': self.description,
+            'sportType': self.sport_type
         }
 
 
@@ -48,6 +43,7 @@ def backend_sports():
     req_data = request.get_json()
     getdata = req_data['idSport']
     sports = []
+
     for i in getdata:
         get = db.session.query(Sports).get(i)
         if get is not None:
@@ -64,10 +60,12 @@ def add_sport():
     req_data = request.get_json()
     sport.name = req_data['name']
     sport.description = req_data['description']
+    sport.sport_type = req_data['sportType']
     try:
         db.session.add(sport)
         db.session.commit()
     except Exception as e:
+        print(e)
         response = jsonify({'message': 'Error data exits',
                             'success': False,
                             'result': req_data
@@ -89,6 +87,23 @@ def get_sport():
                         'success': True,
                         'result': sports
                         })
+    return response
+
+
+@sports_api_blueprint.route('/sports/search', methods=['GET'])
+def find_sportType():
+    sports = []
+    impediment = db.session.query(Sports).filter(
+        Sports.sport_type == request.args.get("sportType")).all()
+    for row in impediment:
+        sports.append(row.to_json())
+
+    dictionary = {
+        'success': 'true',
+        'message': 'success',
+        'result': sports
+    }
+    response = jsonify(dictionary)
     return response
 
 

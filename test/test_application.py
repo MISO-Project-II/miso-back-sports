@@ -16,15 +16,22 @@ class ViewTest(unittest.TestCase):
     def test_postSport(self):
         with application.test_client() as client:
             response = client.post("/sports",
-                                   data=json.dumps({"name": "Football", "description": "descript"}),
+                                   data=json.dumps({"name": "Football", "description": "descript", "sportType": "a"}),
                                    content_type='application/json'
                                    )
             assert response.status_code == 200
-
+    def test_get_impediments01(self):
+        with application.test_client() as client:
+            response = client.get("/sports/search?sportType=a ")
+            #response = client.get("/impediments/", query_string={"impedimentType":"INCONVENIENCE"})
+            status_code = response.status_code
+            self.assertEqual(status_code, 200)
     def test_postSport_back(self):
         with application.test_client() as client:
             response = client.post("/backend/sports/",
-                                   data=json.dumps({"idSport": [1, 2, 3, 4, 5, 6]}),
+                                   data=json.dumps({
+                                       "idSport": [1, 2, 3, 4, 5, 6]
+                                   }),
                                    content_type='application/json'
                                    )
             assert response.status_code == 200
