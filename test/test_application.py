@@ -20,7 +20,12 @@ class ViewTest(unittest.TestCase):
                                    content_type='application/json'
                                    )
             assert response.status_code == 200
-
+    def test_get_impediments01(self):
+        with application.test_client() as client:
+            response = client.get("/sports/search?sportType=a ")
+            #response = client.get("/impediments/", query_string={"impedimentType":"INCONVENIENCE"})
+            status_code = response.status_code
+            self.assertEqual(status_code, 200)
     def test_postSport_back(self):
         with application.test_client() as client:
             response = client.post("/backend/sports/",

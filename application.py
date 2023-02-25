@@ -90,6 +90,23 @@ def get_sport():
     return response
 
 
+@sports_api_blueprint.route('/sports/search', methods=['GET'])
+def find_sportType():
+    sports = []
+    impediment = db.session.query(Sports).filter(
+        Sports.sport_type == request.args.get("sportType")).all()
+    for row in impediment:
+        sports.append(row.to_json())
+
+    dictionary = {
+        'success': 'true',
+        'message': 'success',
+        'result': sports
+    }
+    response = jsonify(dictionary)
+    return response
+
+
 def create_app():
     Flask(__name__)
     app.config['JSON_SORT_KEYS'] = False
